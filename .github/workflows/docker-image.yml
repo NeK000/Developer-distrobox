@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/distrobox-dev:2025.6.1
+      run: docker build . --file Dockerfile --tag ghcr.io/nek000/distrobox-dev:2025.6.1
 
     - name: Push Docker image
-      run: docker push ghcr.io/${{ github.repository_owner }}/distrobox-dev:2025.6.1
+      run: docker push ghcr.io/nek000/distrobox-dev:2025.6.1
