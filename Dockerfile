@@ -17,6 +17,7 @@ RUN apt-get update && \
     nano \
     software-properties-common \
     ansible \
+    podman \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and install Visual Studio Code
@@ -25,11 +26,3 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' && \
     apt-get update && \
     apt-get install -y code
-
-# Install Docker inside the container
-RUN apt-get update && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
-    apt-get update && \
-    apt-get install -y docker-ce docker-ce-cli containerd.io    
-RUN usermod -aG docker ninik
