@@ -7,7 +7,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build-and-push:
     runs-on: ubuntu-latest
 
@@ -17,29 +16,42 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository with full history and tags
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Needed to read git history and tags
+          fetch-depth: 0
+          fetch-tags: true
 
-      - name: Get date and version tag
+      - name: Set up version tag
         id: tag
         run: |
+          git fetch --tags  # Ensure tags are available
+
           YEAR=$(date +%Y)
           MONTH=$(date +%-m)
-          
-          # Find the highest N for the current year and month
-          PREFIX="$YEAR.$MONTH."
-          LAST=$(git tag --list "${PREFIX}*" | sed "s/^$PREFIX//" | sort -nr | head -n 1)
+          PREFIX="${YEAR}.${MONTH}."
+
+          # Find latest N for current month
+          LAST=$(git tag -l "${PREFIX}*" | sed "s/^${PREFIX}//" | sort -nr | head -n 1)
+
           if [[ -z "$LAST" ]]; then
             NEXT=1
           else
             NEXT=$((LAST + 1))
           fi
-          VERSION="$YEAR.$MONTH.$NEXT"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "VERSION=$VERSION"
-         
+
+          VERSION="${YEAR}.${MONTH}.${NEXT}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "Generated version: $VERSION"
+
+      - name: Create and push Git tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git tag "${VERSION}"
+          git push origin "${VERSION}"
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
