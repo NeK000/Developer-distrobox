@@ -4,7 +4,8 @@ LABEL maintainer="Nikolay Nikolov"
 LABEL github_user="https://github.com/NeK000"
 
 # Create user 'ninik' using existing GID 1000
-RUN useradd -m -u 1000 -g 1000 ninik
+RUN usermod -l ninik -d /home/ninik -m ubuntu && \
+    groupmod -n ninik ubuntu
 
 # Install tools
 RUN apt-get update && apt-get install -y \
