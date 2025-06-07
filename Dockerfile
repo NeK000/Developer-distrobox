@@ -3,8 +3,8 @@ FROM ubuntu:latest
 LABEL maintainer="Nikolay Nikolov"
 LABEL github_user="https://github.com/NeK000"
 
-sudo usermod --add-subuids 100000-165535 ninik
-sudo usermod --add-subgids 100000-165535 ninik
+RUN usermod --add-subuids 100000-165535 ninik
+RUN usermod --add-subgids 100000-165535 ninik
 
 # Installing tools:
 RUN apt-get update && \
