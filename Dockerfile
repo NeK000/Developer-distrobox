@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 
 LABEL maintainer="Nikolay Nikolov"
+LABEL github_user="https://github.com/NeK000"
 
 # Installing tools:
 RUN apt-get update && \
@@ -31,3 +32,4 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     apt-get update && \
     apt-get install -y docker-ce docker-ce-cli containerd.io    
+RUN usermod -aG docker ninik
