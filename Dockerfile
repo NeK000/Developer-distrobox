@@ -24,7 +24,3 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list && \
     apt-get update && \
     apt-get install -y code
-
-# Set default user and working directory
-USER ninik
-WORKDIR /home/ninik
