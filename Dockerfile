@@ -3,10 +3,6 @@ FROM ubuntu:latest
 LABEL maintainer="Nikolay Nikolov"
 LABEL github_user="https://github.com/NeK000"
 
-# Create user 'ninik' using existing GID 1000
-RUN usermod -l ninik -d /home/ninik -m ubuntu && \
-    groupmod -n ninik ubuntu
-
 # Install tools
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -19,12 +15,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     nano \
     ansible \
-    podman \
     sudo \
     && rm -rf /var/lib/apt/lists/*
-
-# Give sudo permissions
-RUN echo "ninik ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/ninik
 
 # Optional: VS Code install
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
