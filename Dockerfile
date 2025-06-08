@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     nano \
-    ansible
+    ansible \
     && rm -rf /var/lib/apt/lists/*
 
 # Optional: VS Code install
@@ -22,4 +22,5 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/packages.microsoft.gpg && \
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list && \
     apt-get update && \
-    apt-get install -y code
+    apt-get install -y code && \
+    rm packages.microsoft.gpg
