@@ -14,8 +14,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     nano \
-    ansible \
-    flatpak \    
+    ansible
     && rm -rf /var/lib/apt/lists/*
 
 # Optional: VS Code install
